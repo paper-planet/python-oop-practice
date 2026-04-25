@@ -13,16 +13,16 @@ class Manage:
 			os.system('cls' if os.name == 'nt' else 'clear')
 			animate_screen()				
 			turn_counter += 1			
-			print(f"|===---===---===---Turn {turn_counter}---===---===---===|")			
+			print(f"|=========-------- Turn {turn_counter} --------=========|")			
 			x.take_turn(y)
 			if y.health <= 0:
 				break			
-			print(f"|===---===---===---Turn {turn_counter}---===---===---===|")			
+			print(f"|=========-------- Turn {turn_counter} --------=========|")			
 			y.take_turn(x)
 			os.system('cls' if os.name == 'nt' else 'clear')
 		
 		print(f"""
-----------------------Game Over------------------------
+|----------------Game Over-------------------
 |
 |   GAME STATS:
 |
@@ -34,5 +34,5 @@ class Manage:
 |
 |   Game Ended In {turn_counter} Turns.
 |   Thanks For Playing.
--------------------------------------------------------
+|----------------Game Over-------------------
 """)

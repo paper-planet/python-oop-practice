@@ -7,9 +7,9 @@ class Object:
 	
 	def stats(self):
 		return f"""
-===-----===---Player {self.name} Stats---===-------===
+|==========---Player {self.name} Stats---============|
 {self}
-===----===---End Player {self.name} Stats---===----===
+|=========---End Player {self.name} Stats---=========|
 """
 	
 class Player(Object):
@@ -31,12 +31,12 @@ Power = {self.power}
 		animate_roll(influx)
 		self.health += influx		
 		return f"""
-----------------Healing-------------------
+|---------------Healing------------------|
 |						       
 |  {self.name}: {old_hp} + {influx} HP 	       
 |  {self.name}: HP Now = {self.health}	       
 |						       
--------------Finished Healing-------------
+|------------Finished Healing------------|
 """
 
 	def basic_attack(self, target):
@@ -45,17 +45,17 @@ Power = {self.power}
 		target_prev_hp = target.health
 		target.health -= damage		
 		return f"""
-- - - - - - - -Basic Attack- - - - - - - - -
+| - - - - - - -Basic Attack- - - - - - - - |
 |			
 |  {self.name} ---Attacking---> {target.name} 	     
 |  {target.name}: HP = {target_prev_hp} - {damage} DMG 
 |  {target.name}: HP Now = {target.health}	     
 |
-- - - - - - - Finished Attack - - - - - - - - 
+| - - - - - - Finished Attack - - - - - - -|
 """
 
 	def super_attack(self, target):
-		print("---------------Super Attack-----------------")
+		print("|--------------Super Attack----------------|")
 		print(f'How Much Power? {self.power} available:')
 		try:		
 			power_charge = int(input('--->'))
@@ -82,7 +82,7 @@ Power = {self.power}
 			return 'Not Enough Power For Super Attack.'
 		
 		return f"""
-$------------| Super Attack |--------------$
+|------------| Super Attack |--------------$
 ||			
 ||  {self.name} ---Attacking---> {target.name} 	     
 ||  Power Charge: {power_charge}
@@ -90,12 +90,12 @@ $------------| Super Attack |--------------$
 ||  {target.name}: HP Now = {target.health}	
 ||  {self.name} New Available Power: {self.power}
 ||   
-$-----------| Finished Attack |------------$ 
+|-----------| Finished Attack |------------$ 
 """
 	
 	def take_turn(self, target):
 		print(f"""
-======------------{self.name}'s Turn------------======
+|=====------------{self.name}'s Turn------------=====|
 Options (Select Number + Enter Key):
 	Check Stats:  1	
 	Heal:	      2				
