@@ -1,6 +1,10 @@
 from random import randint
 from sys import stdout
 from time import sleep, time
+import os
+
+def clear_screen():
+	os.system('cls' if os.name == 'nt' else 'clear')
 
 def roll(min_val, max_val):
     return randint(min_val, max_val)

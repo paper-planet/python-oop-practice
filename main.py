@@ -1,11 +1,12 @@
 from random import randint
-from fx import roll, animate_roll, animate_screen
+from fx import clear_screen, roll, animate_roll, animate_screen
 
 class Object:
 	def __init__(self, name):
 		self.name = name
 	
 	def stats(self):
+		clear_screen()
 		return f"""
 |==========---Player {self.name} Stats---============|
 {self}
@@ -31,12 +32,12 @@ Power = {self.power}
 		animate_roll(influx)
 		self.health += influx		
 		return f"""
-|---------------Healing------------------|
+|<3--------------Healing-----------------<3|
 |						       
 |  {self.name}: {old_hp} + {influx} HP 	       
 |  {self.name}: HP Now = {self.health}	       
 |						       
-|------------Finished Healing------------|
+|<3-----------Finished Healing-----------<3|
 """
 
 	def basic_attack(self, target):
@@ -54,7 +55,7 @@ Power = {self.power}
 | - - - - - - Finished Attack - - - - - - -|
 """
 
-	def super_attack(self, target):
+	def super_attack(self, target):	
 		print("|--------------Super Attack----------------|")
 		print(f'How Much Power? {self.power} available:')
 		try:		
@@ -103,6 +104,7 @@ Options (Select Number + Enter Key):
 	Super Attack: 4 (Costs Power)
 """)
 		x = input('--->')
+		clear_screen()
 		#x = str(randint(1, 4))
 		if x == '1':
 			animate_screen()

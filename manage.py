@@ -1,16 +1,14 @@
 from main import *
-from fx import animate_screen
-import os
+from fx import clear_screen, animate_screen
 
 class Manage:
 	def __init__(self):
-		os.system('cls' if os.name == 'nt' else 'clear')
+		clear_screen
 		x = Player("X")
 		y = Player("Y")
 		turn_counter = 0
 
-		while x.health > 0 and y.health > 0:		
-			os.system('cls' if os.name == 'nt' else 'clear')
+		while x.health > 0 and y.health > 0:
 			animate_screen()				
 			turn_counter += 1			
 			print(f"|=========-------- Turn {turn_counter} --------=========|")			
@@ -19,7 +17,6 @@ class Manage:
 				break			
 			print(f"|=========-------- Turn {turn_counter} --------=========|")			
 			y.take_turn(x)
-			os.system('cls' if os.name == 'nt' else 'clear')
 		
 		print(f"""
 |----------------Game Over-------------------
