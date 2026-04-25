@@ -9,7 +9,6 @@ class Object:
 ----------------Player {self.name} Stats------------------
 {self}
 """
-
 	
 class Player(Object):
 	def __init__(self, *args, health=1000, power=100, **kwargs):
