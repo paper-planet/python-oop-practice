@@ -1,5 +1,9 @@
 from main import *
-from fx import clear_screen, animate_screen
+from fx import clear_screen, animate_screen, color
+
+RED = "\033[31m"	#color
+GREEN = "\033[32m"	#color
+RESET = "\033[0m"	#color
 
 class Manage:
 	def __init__(self):
@@ -18,18 +22,18 @@ class Manage:
 			print(f"|=========-------- Turn {turn_counter} --------=========|")			
 			y.take_turn(x)
 		
-		print(f"""
+		print(f"""{RED}
 |----------------Game Over-------------------
 |
-|   GAME STATS:
+|   {GREEN}GAME STATS:{RED}
 |
-|   {x.name} HP: {x.health}
-|   Remaining Power: {x.power}
+|   {GREEN}{x.name} HP: {RED}{x.health}
+|   {GREEN}Remaining Power: {RED}{x.power}
 |
-|   {y.name} HP: {y.health}
-|   Remaining Power: {y.power}
+|   {GREEN}{y.name} HP: {RED}{y.health}
+|   {GREEN}Remaining Power: {RED}{y.power}
 |
-|   Game Ended In {turn_counter} Turns.
-|   Thanks For Playing.
+|   Game Ended In {GREEN}{turn_counter} {RED}Turns.
+|   {GREEN}Thanks For Playing.{RED}
 |----------------Game Over-------------------
-""")
+{RESET}""")

@@ -1,5 +1,5 @@
 from random import randint
-from fx import clear_screen, roll, animate_roll, animate_screen
+from fx import clear_screen, roll, animate_roll, animate_screen, color
 
 class Object:
 	def __init__(self, name):
