@@ -35,5 +35,3 @@ def animate_screen(duration=0.3):
 
 def color(text, code): # {'red:31, green:32, yellow:33, blue:34, reset:0
     return f"\033[{code}{text}\033[0m"
-
-#print(color("Critical Hit!", 31))
