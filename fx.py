@@ -18,7 +18,7 @@ def animate_roll(final_value, duration=1.0):
     stdout.write(f"\rFinal Roll: {final_value}      \n")
 
 def animate_screen(duration=0.3):
-    width = 80
+    width = 48
     steps = int(duration / 0.02)
 
     for i in range(steps):
