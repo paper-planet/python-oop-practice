@@ -1,4 +1,5 @@
 from random import randint
+from fx import roll, animate_roll, animate_screen
 
 class Object:
 	def __init__(self, name):
@@ -26,7 +27,8 @@ Power = {self.power}
 
 	def heal(self):
 		old_hp = self.health
-		influx = randint(1, 25)
+		influx = roll(1, 50)
+		animate_roll(influx)
 		self.health += influx		
 		return f"""
 ----------------------Healing------------------------
@@ -38,7 +40,8 @@ Power = {self.power}
 """
 
 	def basic_attack(self, target):
-		damage = randint(1, 25)
+		damage = roll(1, 100)
+		animate_roll(damage)
 		target_prev_hp = target.health
 		target.health -= damage		
 		return f"""
@@ -63,13 +66,15 @@ Power = {self.power}
 		
 		if power_charge <= self.power and power_charge != 1:
 			self.power -= power_charge		
-			damage = randint(5, 35)				
+			damage = roll(1, 35)
+			animate_roll(damage)
 			super_damage = damage * power_charge
 			target_prev_hp = target.health
 			target.health -= super_damage		
 		elif power_charge == 1:
 			self.power -= power_charge		
-			damage = randint(5, 35)
+			damage = roll(1, 35)
+			animate_roll(damage)
 			super_damage = damage * 2				
 			target_prev_hp = target.health
 			target.health -= super_damage		
@@ -100,15 +105,20 @@ Options (Select Number + Enter Key):
 		x = input('--->')
 		#x = str(randint(1, 4))
 		if x == '1':
+			animate_screen()
 			print(f'{self.stats()}{target.stats()}')
 			self.take_turn(target)		
 		elif x == '2':
+			animate_screen()
 			print(self.heal())
 		elif x == '3':
+			animate_screen()
 			print(self.basic_attack(target))
 		elif x == '4':
+			animate_screen()
 			print(self.super_attack(target))
 		else:
+			animate_screen()
 			print('Invalid. End of Turn.')
 		
 
