@@ -29,7 +29,7 @@ HP = {self.health}
 Power = {self.power}
 """
 
-	def calc_element_crit(self, target):	
+	def calc_element_crit(self, target): # 1/3 odds hitting crit if advantage element.
 		if self.element == 'water' and target.element == 'fire':
 			return True if roll(1, 3) == 3 else False
 		elif self.element == 'fire' and target.element == 'grass':
