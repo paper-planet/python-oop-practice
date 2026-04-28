@@ -21,7 +21,6 @@ class Player(Object):
 		self.health = health
 		self.power = power
 		
-
 	def __str__(self):
 		return f"""
 Player {self.name}
@@ -67,7 +66,6 @@ Power = {self.power}
 
 		if auto == True:
 			power_charge = randint(0, self.power)
-			
 
 		else:
 			try:		
