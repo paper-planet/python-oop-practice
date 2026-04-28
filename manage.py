@@ -32,16 +32,17 @@ Choose Mode:
 	def game_loop(self):	
 		turn_counter = 0
 		x, y = self.char_constructor()	
-		while x.health > 0 and y.health > 0:		
+		while x.health > 0 and y.health > 0:	
+			clear_screen()	
 			turn_counter += 1			
 			print(f"|=========-------- Turn {turn_counter} --------=========|")			
 			x.take_turn(y)
-			if y.health <= 0:
+			if x.health <= 0 or y.health <= 0:
 				break			
 			print(f"|=========-------- Turn {turn_counter} --------=========|")			
 			y.take_turn(x)
 			input('Continue?')
-			clear_screen()
+			
 		
 		print(f"""{RED}
 |----------------Game Over-------------------

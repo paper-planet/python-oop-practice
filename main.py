@@ -1,5 +1,5 @@
 from random import randint
-from fx import clear_screen, roll, animate_roll, animate_screen, color
+from fx import clear_screen, roll, animate_roll, color
 from time import sleep
 
 class Object:
@@ -66,7 +66,8 @@ Power = {self.power}
 		print(f'How Much Power? {self.power} available:')
 
 		if auto == True:
-			power_charge = randint(1, self.power)
+			power_charge = randint(0, self.power)
+			
 
 		else:
 			try:		
@@ -79,7 +80,7 @@ Power = {self.power}
 
 		print('Super Attack!')
 
-		if power_charge <= self.power and power_charge != 1:
+		if power_charge <= self.power and power_charge not in (0, 1):
 			self.power -= power_charge		
 			damage = roll(1, 35)
 			animate_roll(damage)
@@ -119,7 +120,7 @@ Power = {self.power}
 	def heal(self):
 		print('Healing!')
 		old_hp = self.health
-		influx = roll(1, 50)
+		influx = roll(10, 420)
 		animate_roll(influx)
 		self.health += influx		
 		return f"""
