@@ -14,7 +14,7 @@ class Object:
 """
 	
 class Player(Object):
-	def __init__(self, *args,  element="basic", health=1000, power=100, **kwargs):
+	def __init__(self, *args,  element='basic', health=1000, power=100, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.element = element		
 		self.health = health
@@ -29,35 +29,20 @@ HP = {self.health}
 Power = {self.power}
 """
 
-	def calc_element_crit(self, target): # returns True, False		
+	def calc_element_crit(self, target):	
 		if self.element == 'water' and target.element == 'fire':
-			# does crit roll
-			return True
+			return True if roll(1, 3) == 3 else False
 		elif self.element == 'fire' and target.element == 'grass':
-			# does crit roll
-			return True
+			return True if roll(1, 3) == 3 else False
 		elif self.element == 'grass' and target.element == 'water':
-			# does crit roll
-			return True
-		else:
-			# does nothing
-			return False
-		
-	def heal(self):
-		old_hp = self.health
-		influx = roll(1, 50)
-		animate_roll(influx)
-		self.health += influx		
-		return f"""
-|<3--------------Healing-----------------<3|
-|						       
-|  {self.name}: {old_hp} + {influx} HP 	       
-|  {self.name}: HP Now = {self.health}	       
-|						       
-|<3-----------Finished Healing-----------<3|
-"""
+			return True if roll(1, 3) == 3 else False
 
+		
 	def basic_attack(self, target):
+		
+		if self.calc_element_crit(target) == True:
+			print('critical hit')
+		
 		damage = roll(1, 100)
 		animate_roll(damage)
 		target_prev_hp = target.health
@@ -111,6 +96,20 @@ Power = {self.power}
 |-----------| Finished Attack |------------$ 
 """
 	
+	def heal(self):
+		old_hp = self.health
+		influx = roll(1, 50)
+		animate_roll(influx)
+		self.health += influx		
+		return f"""
+|<3--------------Healing-----------------<3|
+|						       
+|  {self.name}: {old_hp} + {influx} HP 	       
+|  {self.name}: HP Now = {self.health}	       
+|						       
+|<3-----------Finished Healing-----------<3|
+"""
+
 	def take_turn(self, target):
 		print(f"""
 |=====------------{self.name}'s Turn------------=====|
