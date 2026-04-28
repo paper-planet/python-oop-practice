@@ -23,7 +23,6 @@ Choose Mode:
 			x = Player(input('P1 Enter Name: '), element=input("Choose Element ('grass', 'water', 'fire') --> "))
 			y = Player(input('P2 Enter Name: '), element=input("Choose Element ('grass', 'water', 'fire') --> "))
 			return x, y
-
 		else:
 			x = Player(input('P1 Enter Name: '), element=input("Choose Element ('grass', 'water', 'fire') --> "))
 			y = AI('AI', element=choice(ELEMENTS))
@@ -43,7 +42,6 @@ Choose Mode:
 			y.take_turn(x)
 			input('Continue?')
 			
-		
 		print(f"""{RED}
 |----------------Game Over-------------------
 |

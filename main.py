@@ -66,7 +66,6 @@ Power = {self.power}
 
 		if auto == True:
 			power_charge = randint(0, self.power)
-
 		else:
 			try:		
 				power_charge = int(input('--->'))
@@ -88,7 +87,6 @@ Power = {self.power}
 				super_damage *= round(1.5) # +50% damage on 1/3odds crit hit.	
 			target_prev_hp = target.health
 			target.health -= super_damage		
-
 		elif power_charge == 1:
 			self.power -= power_charge		
 			damage = roll(1, 35)
