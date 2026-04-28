@@ -39,23 +39,26 @@ Power = {self.power}
 			return True if roll(1, 3) == 3 else False
 		
 	def basic_attack(self, target):		
+		print('Attacking!')
 		damage = roll(1, 100)		
 		animate_roll(damage)		
-
-		if self.calc_element_crit(target) == True:
-			print(f"Critical Hit, {damage} DMG +50%")
+		crit_bool = self.calc_element_crit(target)
+		crit_output = 'Miss' 
+		if crit_bool == True:
+			crit_output = f'{damage} DMG +50%'
 			damage *= round(1.5) # +50% damage on 1/3odds crit hit.
 		target_prev_hp = target.health
 		target.health -= damage		
 
 		return f"""
-| - - - - - - -Basic Attack- - - - - - - - |
+| - - - - - - -{self.name} Basic Attack- - - - - - - - |
 |			
-|  {self.name} ---Attacking---> {target.name} 	     
+|  {self.name} ---Attacking---> {target.name} 	    
+|  Critical Hit: {crit_output} 
 |  {target.name}: HP = {target_prev_hp} - ({damage} DMG) 
 |  {target.name}: HP Now = {target.health}	     
 |
-| - - - - - - Finished Attack - - - - - - -|
+| - - - - - - {self.name} Finished Basic Attack - - - - - - -|
 """
 
 	def super_attack(self, target, auto=False):	
@@ -73,6 +76,8 @@ Power = {self.power}
 		
 		crit_multiplier = self.calc_element_crit(target)
 		crit_output = 'Miss'
+
+		print('Super Attack!')
 
 		if power_charge <= self.power and power_charge != 1:
 			self.power -= power_charge		
@@ -99,7 +104,7 @@ Power = {self.power}
 			return 'Not Enough Power For Super Attack.'
 		
 		return f"""
-|------------| Super Attack |--------------$
+|------------| {self.name} Super Attack |--------------$
 ||			
 ||  {self.name} ---Attacking---> {target.name} 	     
 ||  Power Charge: {power_charge}
@@ -108,24 +113,25 @@ Power = {self.power}
 ||  {target.name}: HP Now = {target.health}	
 ||  {self.name} New Available Power: {self.power}
 ||   
-|-----------| Finished Attack |------------$ 
+|-----------| {self.name} Finished Attack |------------$ 
 """
 	
 	def heal(self):
+		print('Healing!')
 		old_hp = self.health
 		influx = roll(1, 50)
 		animate_roll(influx)
 		self.health += influx		
 		return f"""
-|<3--------------Healing-----------------<3|
+|<3--------------{self.name} Healing-----------------<3|
 |						       
 |  {self.name}: {old_hp} + {influx} HP 	       
 |  {self.name}: HP Now = {self.health}	       
 |						       
-|<3-----------Finished Healing-----------<3|
+|<3-----------{self.name} Finished Healing-----------<3|
 """
 
-	def take_turn(self, target):
+	def take_turn(self, target):		
 		print(f"""
 |=====------------{self.name}'s Turn------------=====|
 Options (Select Number + Enter Key):
@@ -135,59 +141,27 @@ Options (Select Number + Enter Key):
 	Super Attack: 4 (Costs Power)
 """)
 		x = input('--->')
-		clear_screen()
-		#x = str(randint(1, 4))
 		if x == '1':
-			animate_screen()
 			print(f'{self.stats()}{target.stats()}')
 			self.take_turn(target)		
 		elif x == '2':
-			animate_screen()
 			print(self.heal())
 		elif x == '3':
-			animate_screen()
 			print(self.basic_attack(target))
 		elif x == '4':
-			animate_screen()
 			print(self.super_attack(target))
 		else:
-			animate_screen()
 			print('Invalid. End of Turn.')
 		
 class AI(Player):
-	def take_turn(self, target):		
-		print('CLEARING SCREEN')
+	def take_turn(self, target):
+		print(f'\n{self.name} Taking Turn...\n')
 		sleep(1)		
-		clear_screen()
-		print(f"""
-|=====------------{self.name}'s Turn------------=====|
-Options (Select Number + Enter Key):
-	Check Stats:  1	
-	Heal:	      2				
-	Basic Attack: 3
-	Super Attack: 4 (Costs Power)
-""")
-		sleep(0.5)
-		print(f'{self.name} Taking Turn...')
-		sleep(0.5)		
 		x = roll(2, 4)				
-		sleep(0.5)
 		if x == 2:
-			print(f'{self.name} Chose Heal.')
-			sleep(0.5)			
-			animate_screen()
 			print(self.heal())
 		elif x == 3:
-			print(f'{self.name} Chose Basic Attack.')
-			sleep(0.5)
-			animate_screen()
 			print(self.basic_attack(target))
-		elif x == 4:
-			print(f'{self.name} Chose Super Attack.')
-			sleep(0.5)			
-			animate_screen()
-			print(self.super_attack(target, auto=True))
 		else:
-			animate_screen()
-			print('Invalid. End of Turn.')
+			print(self.super_attack(target, auto=True))
 

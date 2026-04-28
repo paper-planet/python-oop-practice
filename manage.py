@@ -1,6 +1,7 @@
 from main import *
 from fx import clear_screen, animate_screen, color
 from random import choice
+from time import sleep
 
 RED = "\033[31m"	#color
 GREEN = "\033[32m"	#color
@@ -9,7 +10,7 @@ ELEMENTS = ['grass', 'water', 'fire', 'basic']
 
 class Manage:
 	def __init__(self):
-		clear_screen
+		clear_screen()
 
 	def char_constructor(self):
 		mode = input("""
@@ -28,11 +29,10 @@ Choose Mode:
 			y = AI('AI', element=choice(ELEMENTS))
 			return x, y
 
-	def game_loop(self):		
+	def game_loop(self):	
 		turn_counter = 0
-		x, y = self.char_constructor()
-		while x.health > 0 and y.health > 0:
-			animate_screen()				
+		x, y = self.char_constructor()	
+		while x.health > 0 and y.health > 0:		
 			turn_counter += 1			
 			print(f"|=========-------- Turn {turn_counter} --------=========|")			
 			x.take_turn(y)
@@ -40,6 +40,8 @@ Choose Mode:
 				break			
 			print(f"|=========-------- Turn {turn_counter} --------=========|")			
 			y.take_turn(x)
+			input('Continue?')
+			clear_screen()
 		
 		print(f"""{RED}
 |----------------Game Over-------------------
