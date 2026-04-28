@@ -1,5 +1,5 @@
 from random import randint
-from fx import clear_screen, roll, animate_roll, color
+from fx import clear_screen, roll, animate_roll
 from time import sleep
 
 class Object:
