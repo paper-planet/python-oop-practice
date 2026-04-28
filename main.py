@@ -38,20 +38,21 @@ Power = {self.power}
 			return True if roll(1, 3) == 3 else False
 
 		
-	def basic_attack(self, target):
-		
+	def basic_attack(self, target):		
+		damage = roll(1, 100)		
+		animate_roll(damage)		
+
 		if self.calc_element_crit(target) == True:
-			print('critical hit')
-		
-		damage = roll(1, 100)
-		animate_roll(damage)
+			print(f"Critical Hit, {damage} DMG +50%")
+			damage *= round(1.5) # +50% damage on 1/3odds crit hit.
 		target_prev_hp = target.health
 		target.health -= damage		
+
 		return f"""
 | - - - - - - -Basic Attack- - - - - - - - |
 |			
 |  {self.name} ---Attacking---> {target.name} 	     
-|  {target.name}: HP = {target_prev_hp} - {damage} DMG 
+|  {target.name}: HP = {target_prev_hp} - ({damage} DMG) 
 |  {target.name}: HP Now = {target.health}	     
 |
 | - - - - - - Finished Attack - - - - - - -|
@@ -60,6 +61,7 @@ Power = {self.power}
 	def super_attack(self, target):	
 		print("|--------------Super Attack----------------|")
 		print(f'How Much Power? {self.power} available:')
+
 		try:		
 			power_charge = int(input('--->'))
 		except ValueError:
@@ -67,18 +69,28 @@ Power = {self.power}
 
 		# power_charge = randint(1, self.power)		
 		
+		crit_multiplier = self.calc_element_crit(target)
+		crit_output = 'Miss'
+
 		if power_charge <= self.power and power_charge != 1:
 			self.power -= power_charge		
 			damage = roll(1, 35)
 			animate_roll(damage)
 			super_damage = damage * power_charge
+			if crit_multiplier == True:
+				crit_output = f'{damage} DMG +50%'
+				super_damage *= round(1.5) # +50% damage on 1/3odds crit hit.	
 			target_prev_hp = target.health
 			target.health -= super_damage		
+
 		elif power_charge == 1:
 			self.power -= power_charge		
 			damage = roll(1, 35)
 			animate_roll(damage)
-			super_damage = damage * 2				
+			super_damage = damage * 2
+			if crit_multiplier == True:
+				crit_output = f'{damage} DMG +50%'
+				damage *= round(1.5) # +50% damage on 1/3odds crit hit.					
 			target_prev_hp = target.health
 			target.health -= super_damage		
 		else:
@@ -89,6 +101,7 @@ Power = {self.power}
 ||			
 ||  {self.name} ---Attacking---> {target.name} 	     
 ||  Power Charge: {power_charge}
+||  Critical Hit: {crit_output}
 ||  {target.name}: HP = {target_prev_hp} - ({damage} DMG * {power_charge} POWER) = {damage * power_charge}
 ||  {target.name}: HP Now = {target.health}	
 ||  {self.name} New Available Power: {self.power}
