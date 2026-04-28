@@ -1,5 +1,6 @@
 from random import randint
 from fx import clear_screen, roll, animate_roll, animate_screen, color
+from time import sleep
 
 class Object:
 	def __init__(self, name):
@@ -58,16 +59,18 @@ Power = {self.power}
 | - - - - - - Finished Attack - - - - - - -|
 """
 
-	def super_attack(self, target):	
+	def super_attack(self, target, auto=False):	
 		print("|--------------Super Attack----------------|")
 		print(f'How Much Power? {self.power} available:')
 
-		try:		
-			power_charge = int(input('--->'))
-		except ValueError:
-			return '\nIncorrect Data Type For Power\n'
+		if auto == True:
+			power_charge = randint(1, self.power)
 
-		# power_charge = randint(1, self.power)		
+		else:
+			try:		
+				power_charge = int(input('--->'))
+			except ValueError:
+				return '\nIncorrect Data Type For Power\n'
 		
 		crit_multiplier = self.calc_element_crit(target)
 		crit_output = 'Miss'
@@ -152,5 +155,41 @@ Options (Select Number + Enter Key):
 			animate_screen()
 			print('Invalid. End of Turn.')
 		
-
+class AI(Player):
+	
+	def take_turn(self, target):		
+		print('CLEARING SCREEN')
+		sleep(1)		
+		clear_screen()
+		print(f"""
+|=====------------{self.name}'s Turn------------=====|
+Options (Select Number + Enter Key):
+	Check Stats:  1	
+	Heal:	      2				
+	Basic Attack: 3
+	Super Attack: 4 (Costs Power)
+""")
+		sleep(0.5)
+		print(f'{self.name} Taking Turn...')
+		sleep(0.5)		
+		x = roll(2, 4)				
+		sleep(0.5)
+		if x == 2:
+			print(f'{self.name} Chose Heal.')
+			sleep(0.5)			
+			animate_screen()
+			print(self.heal())
+		elif x == 3:
+			print(f'{self.name} Chose Basic Attack.')
+			sleep(0.5)
+			animate_screen()
+			print(self.basic_attack(target))
+		elif x == 4:
+			print(f'{self.name} Chose Super Attack.')
+			sleep(0.5)			
+			animate_screen()
+			print(self.super_attack(target, auto=True))
+		else:
+			animate_screen()
+			print('Invalid. End of Turn.')
 
