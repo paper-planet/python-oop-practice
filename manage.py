@@ -8,8 +8,8 @@ RESET = "\033[0m"	#color
 class Manage:
 	def __init__(self):
 		clear_screen
-		x = Player("X", element='fire')
-		y = Player("Y", element='water')
+		x = Player(input('P1 Enter Name: '), element=input("Choose Element ('grass', 'water', 'fire') --> "))
+		y = Player(input('P2 Enter Name: '), element=input("Choose Element ('grass', 'water', 'fire') --> "))
 		turn_counter = 0
 
 		while x.health > 0 and y.health > 0:

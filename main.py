@@ -8,9 +8,9 @@ class Object:
 	def stats(self):
 		clear_screen()
 		return f"""
-|==========---Player {self.name} Stats---============|
+|==========---{self.name} Stats---============|
 {self}
-|=========---End Player {self.name} Stats---=========|
+|=========---End {self.name} Stats---=========|
 """
 	
 class Player(Object):
