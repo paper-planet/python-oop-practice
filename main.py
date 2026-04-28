@@ -14,18 +14,35 @@ class Object:
 """
 	
 class Player(Object):
-	def __init__(self, *args, health=1000, power=100, **kwargs):
+	def __init__(self, *args,  element="basic", health=1000, power=100, **kwargs):
 		super().__init__(*args, **kwargs)
+		self.element = element		
 		self.health = health
 		self.power = power
+		
 
 	def __str__(self):
 		return f"""
 Player {self.name}
+Element: {self.element}
 HP = {self.health}
 Power = {self.power}
 """
 
+	def calc_element_crit(self, target): # returns True, False		
+		if self.element == 'water' and target.element == 'fire':
+			# does crit roll
+			return True
+		elif self.element == 'fire' and target.element == 'grass':
+			# does crit roll
+			return True
+		elif self.element == 'grass' and target.element == 'water':
+			# does crit roll
+			return True
+		else:
+			# does nothing
+			return False
+		
 	def heal(self):
 		old_hp = self.health
 		influx = roll(1, 50)
