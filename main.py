@@ -156,7 +156,6 @@ Options (Select Number + Enter Key):
 			print('Invalid. End of Turn.')
 		
 class AI(Player):
-	
 	def take_turn(self, target):		
 		print('CLEARING SCREEN')
 		sleep(1)		
