@@ -37,7 +37,6 @@ Power = {self.power}
 			return True if roll(1, 3) == 3 else False
 		elif self.element == 'grass' and target.element == 'water':
 			return True if roll(1, 3) == 3 else False
-
 		
 	def basic_attack(self, target):		
 		damage = roll(1, 100)		
