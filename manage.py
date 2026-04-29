@@ -3,9 +3,9 @@ from fx import clear_screen, animate_screen, color
 from random import choice
 from time import sleep
 
-RED = "\033[31m"	#color
-GREEN = "\033[32m"	#color
-RESET = "\033[0m"	#color
+RED = '\033[31m'	#color
+GREEN = '\033[32m'	#color
+RESET = '\033[0m'	#color
 ELEMENTS = ['grass', 'water', 'fire', 'basic']
 
 class Manage:
@@ -34,11 +34,11 @@ Choose Mode:
 		while x.health > 0 and y.health > 0:	
 			clear_screen()	
 			turn_counter += 1			
-			print(f"|=========-------- Turn {turn_counter} --------=========|")			
+			print(f'|=========-------- Turn {turn_counter} --------=========|')			
 			x.take_turn(y)
 			if x.health <= 0 or y.health <= 0:
 				break			
-			print(f"|=========-------- Turn {turn_counter} --------=========|")			
+			print(f'|=========-------- Turn {turn_counter} --------=========|')			
 			y.take_turn(x)
 			input('Continue?')
 			

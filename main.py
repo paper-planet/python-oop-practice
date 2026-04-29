@@ -61,7 +61,7 @@ Power = {self.power}
 """
 
 	def super_attack(self, target, auto=False):	
-		print("|--------------Super Attack----------------|")
+		print('|--------------Super Attack----------------|')
 		print(f'How Much Power? {self.power} available:')
 
 		if auto == True:
