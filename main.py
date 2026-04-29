@@ -15,6 +15,14 @@ class Object:
 """
 	
 class Player(Object):
+
+	ADVANTAGE = {
+    		"water": "fire",
+    		"fire": "grass",
+    		"grass": "water"
+	}
+
+
 	def __init__(self, *args,  element='basic', health=1000, power=100, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.element = element		
@@ -29,14 +37,12 @@ HP = {self.health}
 Power = {self.power}
 """
 
-	def calc_element_crit(self, target): # 1/3 odds hitting crit if advantage element.
-		if self.element == 'water' and target.element == 'fire':
-			return True if roll(1, 3) == 3 else False
-		elif self.element == 'fire' and target.element == 'grass':
-			return True if roll(1, 3) == 3 else False
-		elif self.element == 'grass' and target.element == 'water':
-			return True if roll(1, 3) == 3 else False
+	def calc_element_crit(self, target):
+		if self.ADVANTAGE.get(self.element) == target.element:
+	        	return roll(1, 3) == 3
+	    	return False
 		
+
 	def basic_attack(self, target):		
 		print('Attacking!')
 		damage = roll(1, 100)		
@@ -74,8 +80,6 @@ Power = {self.power}
 		
 		crit_multiplier = self.calc_element_crit(target)
 		crit_output = 'Miss'
-
-		print('Super Attack!')
 
 		if power_charge <= self.power and power_charge not in (0, 1):
 			self.power -= power_charge		
