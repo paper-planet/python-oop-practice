@@ -40,81 +40,78 @@ Power = {self.power}
 	def calc_element_crit(self, target):
 		if self.ADVANTAGE.get(self.element) == target.element:
 	        	return roll(1, 3) == 3
-	
 		return False
-		
 
-	def basic_attack(self, target):		
-		damage = roll(1, 100)		
-		animate_roll(damage)		
-		crit_bool = self.calc_element_crit(target)
-		crit_output = 'Miss' 
-		if crit_bool == True:
-			crit_output = f'{damage} DMG +50%'
-			damage *= round(1.5) # +50% damage on 1/3odds crit hit.
+	def apply_damage(self, target, base_damage, multiplier=1):
+		crit = self.calc_element_crit(target)
+
+		damage = base_damage * multiplier
+
+		if crit:
+			damage = int(damage * 1.5)
+
 		target_prev_hp = target.health
-		target.health -= damage		
+		target.health -= damage
+
+		return damage, target_prev_hp, crit
+
+	def basic_attack(self, target):
+		base_damage = roll(1, 100)
+		animate_roll(base_damage)
+
+		damage, prev_hp, crit = self.apply_damage(target, base_damage)
+
+		crit_output = f"{base_damage} DMG +50%" if crit else "Miss"
 
 		return f"""
 | - - - - - - -{self.name} Basic Attack- - - - - - - - |
-|			
-|  {self.name} ---Attacking---> {target.name} 	    
-|  Critical Hit: {crit_output} 
-|  {target.name}: HP = {target_prev_hp} - ({damage} DMG) 
-|  {target.name}: HP Now = {target.health}	     
+|
+|  {self.name} ---Attacking---> {target.name}
+|  Critical Hit: {crit_output}
+|  {target.name}: HP = {prev_hp} - ({damage} DMG)
+|  {target.name}: HP Now = {target.health}
 |
 | - - - - - - {self.name} Finished Basic Attack - - - - - - -|
-"""
+"""	
 
-	def super_attack(self, target, auto=False):	
+	def super_attack(self, target, auto=False):
 		print('|--------------Super Attack----------------|')
 		print(f'How Much Power? {self.power} available:')
 
-		if auto == True:
+		if auto:
 			power_charge = randint(0, self.power)
 		else:
-			try:		
+			try:
 				power_charge = int(input('--->'))
 			except ValueError:
 				return '\nIncorrect Data Type For Power\n'
-		
-		crit_multiplier = self.calc_element_crit(target)
-		crit_output = 'Miss'
 
-		if power_charge <= self.power and power_charge not in (0, 1):
-			self.power -= power_charge		
-			damage = roll(1, 35)
-			animate_roll(damage)
-			super_damage = damage * power_charge
-			if crit_multiplier == True:
-				crit_output = f'{damage} DMG +50%'
-				super_damage *= round(1.5) # +50% damage on 1/3odds crit hit.	
-			target_prev_hp = target.health
-			target.health -= super_damage		
-		elif power_charge == 1:
-			self.power -= power_charge		
-			damage = roll(1, 35)
-			animate_roll(damage)
-			super_damage = damage * 2
-			if crit_multiplier == True:
-				crit_output = f'{damage} DMG +50%'
-				damage *= round(1.5) # +50% damage on 1/3odds crit hit.					
-			target_prev_hp = target.health
-			target.health -= super_damage		
-		else:
+		if power_charge > self.power:
 			return 'Not Enough Power For Super Attack.'
-		
+
+		self.power -= power_charge
+
+		base_damage = roll(1, 35)
+		animate_roll(base_damage)
+
+		# normalize multiplier
+		multiplier = 2 if power_charge == 1 else power_charge
+
+		damage, prev_hp, crit = self.apply_damage(target, base_damage, multiplier)
+
+		crit_output = f"{base_damage} DMG +50%" if crit else "Miss"
+
 		return f"""
-|------------| {self.name} Super Attack |--------------$
-||			
-||  {self.name} ---Attacking---> {target.name} 	     
-||  Power Charge: {power_charge}
-||  Critical Hit: {crit_output}
-||  {target.name}: HP = {target_prev_hp} - ({damage} DMG * {power_charge} POWER) = {damage * power_charge}
-||  {target.name}: HP Now = {target.health}	
-||  {self.name} New Available Power: {self.power}
-||   
-|-----------| {self.name} Finished Attack |------------$ 
+|------------| {self.name} Super Attack |--------------|
+|
+|  {self.name} ---Attacking---> {target.name}
+|  Power Charge: {power_charge}
+|  Critical Hit: {crit_output}
+|  {target.name}: HP = {prev_hp} - ({damage} DMG)
+|  {target.name}: HP Now = {target.health}
+|  {self.name} New Available Power: {self.power}
+|
+|-----------| {self.name} Finished Attack |------------|
 """
 	
 	def heal(self):
