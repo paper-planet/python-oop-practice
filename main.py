@@ -22,7 +22,6 @@ class Player(Object):
     		"grass": "water"
 	}
 
-
 	def __init__(self, *args,  element='basic', health=1000, power=100, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.element = element		
