@@ -40,11 +40,11 @@ Power = {self.power}
 	def calc_element_crit(self, target):
 		if self.ADVANTAGE.get(self.element) == target.element:
 	        	return roll(1, 3) == 3
-	    	return False
+	
+		return False
 		
 
 	def basic_attack(self, target):		
-		print('Attacking!')
 		damage = roll(1, 100)		
 		animate_roll(damage)		
 		crit_bool = self.calc_element_crit(target)
@@ -118,7 +118,6 @@ Power = {self.power}
 """
 	
 	def heal(self):
-		print('Healing!')
 		old_hp = self.health
 		influx = roll(10, 420)
 		animate_roll(influx)

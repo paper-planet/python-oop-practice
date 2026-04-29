@@ -6,7 +6,7 @@ from time import sleep
 RED = '\033[31m'	#color
 GREEN = '\033[32m'	#color
 RESET = '\033[0m'	#color
-ELEMENTS = ['grass', 'water', 'fire', 'basic']
+ELEMENTS = ['grass', 'water', 'fire']
 
 class Manage:
 	def __init__(self):
